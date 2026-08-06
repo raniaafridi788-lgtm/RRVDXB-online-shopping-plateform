@@ -5,6 +5,7 @@ import OrderHistory from "./UserDashBoard/OrderHistory";
 import TrackOrder from "./UserDashBoard/TrackOrder";
 import Wishlist from "./UserDashBoard/Wishlist";
 import Profile from "./UserDashBoard/Profile";
+import Wallet from "./Wallets/Wallet";
 
 const PAGES = {
   home: Home,
@@ -19,9 +20,11 @@ export default function App() {
   const Page = PAGES[active];
 
   return (
-    <div className="flex h-screen w-full bg-slate-50 font-sans">
-      <Sidebar active={active} onNavigate={setActive} />
-      <Page />
-    </div>
+    // <div className="flex h-screen w-full bg-slate-50 font-sans">
+    //   <Sidebar active={active} onNavigate={setActive} />
+    //   <Page />
+    // </div>
+    <Wallet />
+
   );
 }
