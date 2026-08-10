@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { ClipboardList, Heart, Wallet, Award, Gift, X, Check, Plus, Trash2, ShieldCheck, Settings as SettingsIcon } from "lucide-react";
+import image from "../assets/image1.jpg"
 
 const TABS = ["Personal Info", "Addresses", "Payment Methods", "Security", "Settings"];
 
 const INITIAL_ACTIVITY = [
-  { text: "Your order #RRVDXB1256 has been shipped.", date: "May 17, 2024", color: "bg-violet-500" },
-  { text: "You added Apple Watch Series 9 to wishlist.", date: "May 16, 2024", color: "bg-emerald-500" },
-  { text: "You updated your shipping address.", date: "May 15, 2024", color: "bg-emerald-500" },
+  { text: "Your order #PKVDXB1256 has been dispatched via TCS.", date: "May 17, 2026", color: "bg-violet-500" },
+  { text: "You added Local Branded Handbag to wishlist.", date: "May 16, 2026", color: "bg-emerald-500" },
+  { text: "You updated your delivery address in Islamabad.", date: "May 15, 2026", color: "bg-emerald-500" },
 ];
 
 export default function Profile() {
@@ -17,12 +18,12 @@ export default function Profile() {
   const [showCardModal, setShowCardModal] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
 
-  // Personal Info Form State
+  // Personal Info Form State (Pakistan localized)
   const [formData, setFormData] = useState({
-    fullName: "Sarah Johnson",
-    email: "sarah.johnson@email.com",
-    phone: "+1 (555) 123-4567",
-    dob: "12 May, 1995",
+    fullName: "Tania Khan",
+    email: "tania.khan@email.com",
+    phone: "+92 300 1234567",
+    dob: "12 May, 1998",
     gender: "Female",
   });
 
@@ -42,13 +43,13 @@ export default function Profile() {
     darkMode: false,
   });
 
-  // Dynamic Lists State
+  // Dynamic Lists State (Pakistan localized)
   const [addresses, setAddresses] = useState([
-    { id: 1, name: "Sarah Johnson", street: "123 Maple Street, Apt 4B", city: "New York, NY 10001", isDefault: true },
+    { id: 1, name: "Ayesha Khan", street: "House #42, Street 12, F-7/2", city: "Islamabad", isDefault: true },
   ]);
 
   const [cards, setCards] = useState([
-    { id: 1, type: "Visa", last4: "4242", expiry: "09/26" },
+    { id: 1, type: "Visa", last4: "4242", expiry: "09/28" },
   ]);
 
   const [newAddress, setNewAddress] = useState({ street: "", city: "" });
@@ -91,7 +92,7 @@ export default function Profile() {
     e.preventDefault();
     if (!newCard.number) return;
     const last4 = newCard.number.slice(-4) || "1234";
-    setCards([...cards, { id: Date.now(), type: "Mastercard", last4, expiry: newCard.expiry || "12/28" }]);
+    setCards([...cards, { id: Date.now(), type: "Meezan / Visa", last4, expiry: newCard.expiry || "12/29" }]);
     setNewCard({ number: "", expiry: "" });
     setShowCardModal(false);
     showToast("Payment method added successfully!");
@@ -113,7 +114,7 @@ export default function Profile() {
         {/* Header card */}
         <div className="flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm shadow-slate-100 sm:flex-row sm:items-center">
           <img
-            src="https://i.pravatar.cc/120?img=47"
+            src={image}
             alt={formData.fullName}
             className="h-16 w-16 rounded-full object-cover"
           />
@@ -121,10 +122,10 @@ export default function Profile() {
             <div className="flex items-center gap-2">
               <h2 className="text-base font-bold text-slate-900">{formData.fullName}</h2>
               <span className="rounded-full bg-violet-100 px-3 py-0.5 text-xs font-medium text-violet-600">
-                Premium Member
+                Gold Member
               </span>
             </div>
-            <p className="text-xs text-slate-400">Member since Jan 2024</p>
+            <p className="text-xs text-slate-400">Member since Jan 2025</p>
           </div>
           <button
             onClick={() => {
@@ -236,9 +237,9 @@ export default function Profile() {
             {activeTab === "Payment Methods" && (
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-slate-900">Saved Cards</h3>
+                  <h3 className="text-sm font-bold text-slate-900">Saved Cards & Payment Methods</h3>
                   <button onClick={() => setShowCardModal(true)} className="text-xs font-semibold text-violet-600 hover:underline cursor-pointer flex items-center gap-1">
-                    <Plus size={14} /> Add Payment Method
+                    <Plus size={14} /> Add Card
                   </button>
                 </div>
                 {cards.map((card) => (
@@ -303,7 +304,7 @@ export default function Profile() {
                   <div className="pt-2 flex items-center justify-between border-t border-slate-100">
                     <div>
                       <p className="text-xs font-semibold text-slate-800">Two-Factor Authentication (2FA)</p>
-                      <p className="text-[11px] text-slate-400">Secure your account with code prompts on login</p>
+                      <p className="text-[11px] text-slate-400">Secure your account with OTP prompts on login</p>
                     </div>
                     <input 
                       type="checkbox" 
@@ -315,7 +316,7 @@ export default function Profile() {
                       className="h-4 w-4 rounded text-violet-600 focus:ring-violet-500 cursor-pointer"
                     />
                   </div>
-                  <button type="submit" className="mt-2 rounded-lg bg-violet-600 px-4 py-2 text-xs font-semibold text-white hover:bg-violet-750 cursor-pointer transition-colors">
+                  <button type="submit" className="mt-2 rounded-lg bg-violet-600 px-4 py-2 text-xs font-semibold text-white hover:bg-violet-700 cursor-pointer transition-colors">
                     Update Password
                   </button>
                 </div>
@@ -332,7 +333,7 @@ export default function Profile() {
                   <label className="flex items-center justify-between cursor-pointer p-2 rounded-lg hover:bg-slate-50 transition-colors">
                     <div>
                       <p className="font-semibold text-slate-800">Promotional Emails & Discounts</p>
-                      <p className="text-[11px] text-slate-400">Receive coupons and personalized product announcements</p>
+                      <p className="text-[11px] text-slate-400">Receive seasonal sale announcements (Eid, 11.11, etc.)</p>
                     </div>
                     <input 
                       type="checkbox" 
@@ -347,8 +348,8 @@ export default function Profile() {
 
                   <label className="flex items-center justify-between cursor-pointer p-2 rounded-lg hover:bg-slate-50 transition-colors">
                     <div>
-                      <p className="font-semibold text-slate-800">SMS Delivery Notifications</p>
-                      <p className="text-[11px] text-slate-400">Get text alerts when out for delivery or shipped</p>
+                      <p className="font-semibold text-slate-800">SMS / WhatsApp Delivery Alerts</p>
+                      <p className="text-[11px] text-slate-400">Get text notifications when out for delivery via TCS / Leopards</p>
                     </div>
                     <input 
                       type="checkbox" 
@@ -384,11 +385,11 @@ export default function Profile() {
           <div className="rounded-2xl bg-white p-6 shadow-sm shadow-slate-100">
             <h3 className="mb-4 text-sm font-bold text-slate-900">Account Overview</h3>
             <div className="space-y-4 text-sm">
-              <Overview icon={ClipboardList} label="Total Orders" value="24" />
-              <Overview icon={Heart} label="Wishlist Items" value="16" />
-              <Overview icon={Wallet} label="Total Spent" value="$2,450" />
-              <Overview icon={Award} label="Member Level" value="Premium" />
-              <Overview icon={Gift} label="Reward Points" value="320 pts" />
+              <Overview icon={ClipboardList} label="Total Orders" value="18" />
+              <Overview icon={Heart} label="Wishlist Items" value="12" />
+              <Overview icon={Wallet} label="Total Spent" value="Rs. 74,500" />
+              <Overview icon={Award} label="Member Level" value="Gold" />
+              <Overview icon={Gift} label="Reward Points" value="1,250 pts" />
             </div>
           </div>
         </div>
@@ -415,6 +416,50 @@ export default function Profile() {
         </div>
       </div>
 
+      {/* View All Activity Modal */}
+      {showActivityModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 relative shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+            <button 
+              type="button"
+              onClick={() => setShowActivityModal(false)} 
+              className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <h3 className="text-base font-bold text-slate-900">All Account Activity</h3>
+            <p className="text-xs text-slate-500">History of your orders, wishlist updates, and profile changes.</p>
+
+            <div className="space-y-3 pt-2">
+              {[
+                ...INITIAL_ACTIVITY,
+                { text: "You updated your phone number.", date: "May 10, 2026", color: "bg-blue-500" },
+                { text: "Order #PKVDXB9821 delivered successfully.", date: "May 02, 2026", color: "bg-emerald-500" },
+                { text: "You redeemed 500 reward points.", date: "Apr 28, 2026", color: "bg-amber-500" },
+                { text: "You changed your account password.", date: "Apr 15, 2026", color: "bg-violet-500" },
+              ].map((act, i) => (
+                <div key={i} className="flex items-start gap-3 text-xs p-3 rounded-xl bg-slate-50 border border-slate-100">
+                  <span className={`mt-1 h-2 w-2 shrink-0 rounded-full ${act.color}`} />
+                  <div className="flex-1">
+                    <p className="font-medium text-slate-800">{act.text}</p>
+                    <p className="text-[11px] text-slate-400 mt-0.5">{act.date}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <button 
+              type="button"
+              onClick={() => setShowActivityModal(false)}
+              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl text-xs cursor-pointer transition-colors mt-4"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Add Address Modal */}
       {showAddressModal && (
         <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
@@ -426,11 +471,11 @@ export default function Profile() {
             <div className="space-y-3">
               <div>
                 <label className="block text-xs font-medium text-slate-500 mb-1">Street Address</label>
-                <input type="text" required placeholder="e.g., 456 Broadway St" value={newAddress.street} onChange={(e) => setNewAddress({...newAddress, street: e.target.value})} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <input type="text" required placeholder="e.g., House #12, Street 4, Bahria Town" value={newAddress.street} onChange={(e) => setNewAddress({...newAddress, street: e.target.value})} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
               </div>
               <div>
-                <label className="block text-xs font-medium text-slate-500 mb-1">City, State, Zip</label>
-                <input type="text" required placeholder="e.g., San Francisco, CA 94107" value={newAddress.city} onChange={(e) => setNewAddress({...newAddress, city: e.target.value})} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <label className="block text-xs font-medium text-slate-500 mb-1">City</label>
+                <input type="text" required placeholder="e.g., Lahore / Karachi / Islamabad" value={newAddress.city} onChange={(e) => setNewAddress({...newAddress, city: e.target.value})} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
               </div>
             </div>
             <button type="submit" className="w-full bg-violet-600 hover:bg-violet-700 text-white font-semibold py-2.5 rounded-xl text-xs cursor-pointer">
@@ -451,7 +496,7 @@ export default function Profile() {
             <div className="space-y-3">
               <div>
                 <label className="block text-xs font-medium text-slate-500 mb-1">Card Number</label>
-                <input type="text" required placeholder="4111 2222 3333 4444" value={newCard.number} onChange={(e) => setNewCard({...newCard, number: e.target.value})} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
+                <input type="text" required placeholder="4214 5500 1234 5678" value={newCard.number} onChange={(e) => setNewCard({...newCard, number: e.target.value})} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500" />
               </div>
               <div>
                 <label className="block text-xs font-medium text-slate-500 mb-1">Expiration Date</label>

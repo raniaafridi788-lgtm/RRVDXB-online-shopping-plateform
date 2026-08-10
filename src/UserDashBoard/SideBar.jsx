@@ -54,24 +54,7 @@ export default function Sidebar({ active, onNavigate }) {
             );
           })}
         </nav>
-      </div>
-
-      <div className="space-y-4">
-        <button className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-slate-400 hover:text-slate-600">
-          <LogOut size={18} />
-          Logout
-        </button>
-
-        <div className="rounded-2xl bg-gradient-to-br from-violet-600 to-purple-600 p-5 text-white">
-          <p className="text-sm font-semibold">Exclusive Member</p>
-          <p className="mt-1 text-xs text-violet-100">
-            Get special offers and rewards
-          </p>
-          <button className="mt-4 w-full rounded-lg bg-white py-2 text-xs font-semibold text-violet-700 hover:bg-violet-50">
-            Explore Benefits
-          </button>
-        </div>
-      </div>
+     </div>
     </aside>
   );
 }

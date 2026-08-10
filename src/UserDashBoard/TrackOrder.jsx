@@ -11,7 +11,7 @@ const INITIAL_STEPS = [
 
 export default function TrackOrder() {
   const [steps, setSteps] = useState(INITIAL_STEPS);
-  const [locationText, setLocationText] = useState("In Transit near FedEx Distribution Hub");
+  const [locationText, setLocationText] = useState("In Transit near TCS Express Logistics Hub");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showAllUpdates, setShowAllUpdates] = useState(false);
@@ -29,9 +29,9 @@ export default function TrackOrder() {
 
   const handleRefreshLocation = () => {
     setIsRefreshing(true);
-    showNotification("Connecting to FedEx live GPS feed...");
+    showNotification("Connecting to TCS live GPS feed...");
     setTimeout(() => {
-      setLocationText("Out for local delivery in New York, NY");
+      setLocationText("Out for local delivery in Islamabad, Pakistan");
       setIsRefreshing(false);
       showNotification("Live location successfully updated!");
     }, 1200);
@@ -160,16 +160,16 @@ export default function TrackOrder() {
             <dl className="space-y-3 text-sm">
               <div className="flex justify-between pb-2 border-b border-slate-50">
                 <dt className="text-slate-400 text-xs">Courier</dt>
-                <dd className="font-medium text-slate-700 text-xs">FedEx Express</dd>
+                <dd className="font-medium text-slate-700 text-xs">TCS Express</dd>
               </div>
               <div className="flex justify-between pb-2 border-b border-slate-50">
                 <dt className="text-slate-400 text-xs">Tracking Number</dt>
-                <dd className="font-mono text-violet-600 text-xs bg-violet-50 px-2 py-0.5 rounded">FDX1234567890</dd>
+                <dd className="font-mono text-violet-600 text-xs bg-violet-50 px-2 py-0.5 rounded">TCS1234567890</dd>
               </div>
               <div className="flex justify-between">
                 <dt className="text-slate-400 text-xs">Shipping Address</dt>
                 <dd className="text-right font-medium text-slate-700 text-xs">
-                  123 Main Street,<br />New York, NY 10001, USA
+                  House 42, Street 12, Sector F-7/2,<br />Islamabad, Pakistan
                 </dd>
               </div>
             </dl>
@@ -211,7 +211,7 @@ export default function TrackOrder() {
             <div className="flex items-start gap-3">
               <span className="mt-1 h-2 w-2 rounded-full bg-emerald-500 shrink-0" />
               <div>
-                <p className="text-slate-700 text-xs font-medium">Your order has been shipped via FedEx.</p>
+                <p className="text-slate-700 text-xs font-medium">Your order has been shipped via TCS Express.</p>
                 <p className="text-[10px] text-slate-400">May 17, 2024 - 10:30 AM</p>
               </div>
             </div>

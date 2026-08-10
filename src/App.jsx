@@ -20,11 +20,11 @@ export default function App() {
   const Page = PAGES[active];
 
   return (
-    // <div className="flex h-screen w-full bg-slate-50 font-sans">
-    //   <Sidebar active={active} onNavigate={setActive} />
-    //   <Page />
-    // </div>
-    <Wallet />
+    <div className="flex h-screen w-full bg-slate-50 font-sans">
+      <Sidebar active={active} onNavigate={setActive} />
+      <Page />
+    </div>
+    // <Wallet />
 
   );
 }

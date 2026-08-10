@@ -1,27 +1,111 @@
 import React, { useState, useMemo } from "react";
 import { Search, Star, Heart, Grid3x3, List, X, ShoppingBag } from "lucide-react";
-import TopBar from "./TopBar";
+
+// TopBar component integrated directly with functional cart state
+function TopBar({ cartCount, cartItems, onRemoveCartItem }) {
+  const [showCartDrawer, setShowCartDrawer] = useState(false);
+
+  return (
+    <>
+      <div className="flex items-center justify-between px-6 py-4 bg-white border-b border-slate-100 mb-6">
+        <h2 className="text-lg font-bold text-slate-800">Shopping Portal</h2>
+        <div className="relative">
+          <button
+            onClick={() => setShowCartDrawer(true)}
+            className="flex items-center gap-2 bg-violet-50 hover:bg-violet-100 text-violet-700 px-4 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+          >
+            <ShoppingBag size={16} />
+            <span>Cart</span>
+            <span className="bg-violet-600 text-white rounded-full px-2 py-0.5 text-[10px]">
+              {cartCount}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Cart Drawer / Modal */}
+      {showCartDrawer && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-end">
+          <div className="bg-white h-full max-w-md w-full p-6 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-200">
+            <div>
+              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+                <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <ShoppingBag size={18} className="text-violet-600" /> Your Shopping Cart ({cartCount})
+                </h3>
+                <button
+                  onClick={() => setShowCartDrawer(false)}
+                  className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              <div className="py-4 space-y-3 overflow-y-auto max-h-[calc(100vh-200px)]">
+                {cartItems.length === 0 ? (
+                  <p className="text-xs text-slate-400 text-center py-10">Your cart is currently empty.</p>
+                ) : (
+                  cartItems.map((item, idx) => (
+                    <div key={idx} className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+                      <div className="flex items-center gap-3">
+                        <img src={item.img} alt={item.name} className="w-12 h-12 object-cover rounded-lg" />
+                        <div>
+                          <p className="text-xs font-semibold text-slate-800">{item.name}</p>
+                          <p className="text-xs font-bold text-violet-600">{item.priceFormatted || item.price}</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => onRemoveCartItem(idx)}
+                        className="text-rose-500 hover:bg-rose-50 p-1.5 rounded-lg text-xs cursor-pointer transition-colors"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-100">
+              <button
+                onClick={() => {
+                  alert("Proceeding to checkout!");
+                  setShowCartDrawer(false);
+                }}
+                className="w-full bg-violet-600 hover:bg-violet-700 text-white py-3 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
+              >
+                Proceed to Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
 
 const INITIAL_WISHLIST = [
-  { id: 1, name: "Michael Kors Bag", price: 350.00, priceFormatted: "$350.00", rating: "4.8", stock: true, img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&q=80", dateAdded: 4 },
-  { id: 2, name: "Apple Watch Series 9", price: 399.00, priceFormatted: "$399.00", rating: "4.9", stock: true, img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=300&q=80", dateAdded: 3 },
-  { id: 3, name: "Nike Air Max 270", price: 160.00, priceFormatted: "$160.00", rating: "4.7", stock: true, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&q=80", dateAdded: 2 },
-  { id: 4, name: "Ray-Ban Sunglasses", price: 155.00, priceFormatted: "$155.00", rating: "4.6", stock: true, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&q=80", dateAdded: 1 },
+  { id: 1, name: "Local Branded Handbag", price: 4500.00, priceFormatted: "Rs. 4,500", rating: "4.8", stock: true, img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&q=80", dateAdded: 4 },
+  { id: 2, name: "Smart Watch T500", price: 3500.00, priceFormatted: "Rs. 3,500", rating: "4.5", stock: true, img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=300&q=80", dateAdded: 3 },
+  { id: 3, name: "Ndure Casual Sneakers", price: 2800.00, priceFormatted: "Rs. 2,800", rating: "4.7", stock: true, img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&q=80", dateAdded: 2 },
+  { id: 4, name: "Classic UV Protection Sunglasses", price: 1500.00, priceFormatted: "Rs. 1,500", rating: "4.6", stock: true, img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&q=80", dateAdded: 1 },
 ];
 
 const RELATED_PRODUCTS = [
-  { id: 101, name: "Minimalist Leather Backpack", price: "$120.00", img: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=200&q=80" },
-  { id: 102, name: "Dior Sauvage Parfum", price: "$140.00", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&q=80" },
-  { id: 103, name: "Sony Wireless Headphones", price: "$299.00", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" },
-  { id: 104, name: "Classic Tote Handbag", price: "$250.00", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=200&q=80" },
-  { id: 105, name: "Casual Everyday Sneakers", price: "$95.00", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80" },
-  { id: 106, name: "Gold Chronograph Watch", price: "$210.00", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=200&q=80" },
-  { id: 107, name: "Fujifilm Instax Mini", price: "$79.99", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=200&q=80" },
+  { id: 101, name: "Faux Leather Casual Backpack", price: "Rs. 2,999", img: "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=200&q=80" },
+  { id: 102, name: "J. Fragrance Inspired Perfume", price: "Rs. 2,200", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=200&q=80" },
+  { id: 103, name: "Wireless Bluetooth Pods", price: "Rs. 1,899", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80" },
+  { id: 104, name: "Women's Daily Tote Bag", price: "Rs. 2,500", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=200&q=80" },
+  { id: 105, name: "Stitched Daily Wear Shoes", price: "Rs. 1,999", img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&q=80" },
+  { id: 106, name: "Metal Chain Wrist Watch", price: "Rs. 2,499", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=200&q=80" },
+  { id: 107, name: "Mini Ring Light Stand", price: "Rs. 1,299", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=200&q=80" },
 ];
 
 export default function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState(INITIAL_WISHLIST);
-  const [cartCount, setCartCount] = useState(2);
+  const [cartItems, setCartItems] = useState([
+    { name: "Smart Watch T500", priceFormatted: "Rs. 3,500", img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=300&q=80" },
+    { name: "Ndure Casual Sneakers", priceFormatted: "Rs. 2,800", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&q=80" }
+  ]);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("recently-added");
   const [viewMode, setViewMode] = useState("grid");
@@ -33,7 +117,11 @@ export default function Wishlist() {
   };
 
   const handleAddToCart = (item) => {
-    setCartCount((prev) => prev + 1);
+    setCartItems((prev) => [...prev, { name: item.name, priceFormatted: item.priceFormatted || item.price, img: item.img }]);
+  };
+
+  const handleRemoveCartItem = (index) => {
+    setCartItems((prev) => prev.filter((_, i) => i !== index));
   };
 
   const toggleRelatedLike = (index) => {
@@ -61,7 +149,7 @@ export default function Wishlist() {
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <TopBar cartCount={cartCount} />
+      <TopBar cartCount={cartItems.length} cartItems={cartItems} onRemoveCartItem={handleRemoveCartItem} />
 
       <div className="px-6 pb-10 md:px-8">
         <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -212,7 +300,7 @@ export default function Wishlist() {
                 <div className="mt-1 flex items-center justify-between">
                   <span className="text-xs font-bold text-slate-900">{product.price}</span>
                   <button 
-                    onClick={() => setCartCount(c => c + 1)}
+                    onClick={() => handleAddToCart(product)}
                     className="p-1 rounded bg-violet-50 text-violet-600 hover:bg-violet-100 transition-colors cursor-pointer"
                     title="Add to bag"
                   >
@@ -237,7 +325,7 @@ export default function Wishlist() {
             </button>
 
             <h3 className="text-base font-bold text-slate-900">Recommended For You</h3>
-            <p className="text-xs text-slate-500">Explore the complete catalog of curated products tailored to your preferences.</p>
+            <p className="text-xs text-slate-500">Explore local curated affordable products tailored to your preferences.</p>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2">
               {RELATED_PRODUCTS.map((product) => (
@@ -249,9 +337,7 @@ export default function Wishlist() {
                   <div className="mt-3 flex items-center justify-between pt-2 border-t border-slate-100">
                     <span className="text-xs font-bold text-slate-900">{product.price}</span>
                     <button 
-                      onClick={() => {
-                        setCartCount(c => c + 1);
-                      }}
+                      onClick={() => handleAddToCart(product)}
                       className="bg-violet-600 hover:bg-violet-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
                     >
                       Add to Cart

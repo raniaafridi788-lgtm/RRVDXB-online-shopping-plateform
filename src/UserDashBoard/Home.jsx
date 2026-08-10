@@ -28,33 +28,35 @@ import {
   Sparkles,
   ChevronDown
 } from "lucide-react";
+import image from "../assets/image1.jpg"
+
 
 // ==========================================
-// CENTRAL SHARED DATA & CONSTANTS
+// CENTRAL SHARED DATA & CONSTANTS (PAKISTAN / PKR)
 // ==========================================
 const ACCOUNT_METRICS = [
   { id: "orders", icon: ShoppingBag, label: "Total Orders", value: "24", subtext: "+3 this month", cta: "View history", color: "bg-violet-50 text-violet-600 border-violet-100" },
   { id: "transit", icon: Truck, label: "In Transit", value: "3", subtext: "Arriving by Friday", cta: "Track shipments", color: "bg-emerald-50 text-emerald-600 border-emerald-100" },
   { id: "wishlist", icon: Heart, label: "Wishlist Items", value: "16", subtext: "2 items on sale", cta: "View wishlist", color: "bg-rose-50 text-rose-500 border-rose-100" },
-  { id: "spent", icon: Wallet, label: "Total Spent", value: "$2,450", subtext: "VIP Tier 2 Status", cta: "View breakdown", color: "bg-blue-50 text-blue-600 border-blue-100" },
+  { id: "spent", icon: Wallet, label: "Total Spent", value: "Rs. 32,500", subtext: "VIP Tier 2 Status", cta: "View breakdown", color: "bg-blue-50 text-blue-600 border-blue-100" },
 ];
 
 const INITIAL_ORDERS = [
-  { id: "#RRVDXB1256", name: "Nike Air Max 270", category: "Footwear", price: "$150.00", date: "May 16, 2024", trackingCode: "TRK-984210", status: "Shipping", statusColor: "bg-blue-50 text-blue-600 border-blue-200/60", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&q=80", courier: "FedEx Express" },
-  { id: "#RRVDXB1257", name: "Apple Watch Series 9", category: "Electronics", price: "$399.00", date: "May 15, 2024", trackingCode: "TRK-983102", status: "Shipped", statusColor: "bg-blue-50 text-blue-600 border-blue-200/60", img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=100&q=80", courier: "DHL Priority" },
-  { id: "#RRVDXB1258", name: "Sony WH-1000XM5", category: "Electronics", price: "$349.00", date: "May 10, 2024", trackingCode: "TRK-980455", status: "Delivered", statusColor: "bg-emerald-50 text-emerald-600 border-emerald-200/60", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=100&q=80", courier: "UPS Ground" },
-  { id: "#RRVDXB1259", name: "MacBook Pro 16 M3", category: "Computing", price: "$2,499.00", date: "May 02, 2024", trackingCode: "TRK-975124", status: "Processing", statusColor: "bg-amber-50 text-amber-600 border-amber-200/60", img: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=100&q=80", courier: "USPS Priority" },
+  { id: "#RRVDXB1256", name: "Casual Canvas Sneakers", category: "Footwear", price: "Rs. 3,500", date: "May 16, 2026", trackingCode: "TRK-984210", status: "Shipping", statusColor: "bg-blue-50 text-blue-600 border-blue-200/60", img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&q=80", courier: "TCS Express" },
+  { id: "#RRVDXB1257", name: "Basic Smart Fitness Band", category: "Electronics", price: "Rs. 4,500", date: "May 15, 2026", trackingCode: "TRK-983102", status: "Shipped", statusColor: "bg-blue-50 text-blue-600 border-blue-200/60", img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=100&q=80", courier: "Leopards Courier" },
+  { id: "#RRVDXB1258", name: "Wired Bass Earphones", category: "Electronics", price: "Rs. 1,900", date: "May 10, 2026", trackingCode: "TRK-980455", status: "Delivered", statusColor: "bg-emerald-50 text-emerald-600 border-emerald-200/60", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=100&q=80", courier: "M&P Courier" },
+  { id: "#RRVDXB1259", name: "RGB Membrane Keyboard", category: "Computing", price: "Rs. 3,200", date: "May 02, 2026", trackingCode: "TRK-975124", status: "Processing", statusColor: "bg-amber-50 text-amber-600 border-amber-200/60", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=100&q=80", courier: "Blue Ex" },
 ];
 
 const EXPANDED_CATALOG = [
-  { id: 1, name: "Michael Kors Signature Handbag", category: "Accessories", price: 350.00, originalPrice: 420.00, rating: "4.8", reviews: "142", badge: "Best Seller", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&q=80" },
-  { id: 2, name: "Ray-Ban Classic Aviator Sunglasses", category: "Accessories", price: 155.00, originalPrice: 185.00, rating: "4.6", reviews: "98", badge: "Trending", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&q=80" },
-  { id: 3, name: "Dior Sauvage Eau de Parfum (100ml)", category: "Fragrance", price: 120.00, originalPrice: 140.00, rating: "4.7", reviews: "310", badge: "Popular", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80" },
-  { id: 4, name: "Nike Air Jordan 1 High OG Retro", category: "Footwear", price: 180.00, originalPrice: 180.00, rating: "4.9", reviews: "524", badge: "Limited Edition", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=300&q=80" },
-  { id: 5, name: "Minimalist Italian Leather Chronograph", category: "Accessories", price: 210.00, originalPrice: 260.00, rating: "4.5", reviews: "76", badge: "Sale", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300&q=80" },
-  { id: 6, name: "Bose QuietComfort Wireless Earbuds", category: "Electronics", price: 279.00, originalPrice: 329.00, rating: "4.8", reviews: "215", badge: "Top Rated", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&q=80" },
-  { id: 7, name: "Fujifilm Instax Mini 12 Instant Camera", category: "Electronics", price: 79.99, originalPrice: 99.99, rating: "4.7", reviews: "180", badge: "Bundle Deal", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=300&q=80" },
-  { id: 8, name: "Le Labo Santal 33 Liquid Balm", category: "Fragrance", price: 98.00, originalPrice: 98.00, rating: "4.9", reviews: "89", badge: "Exclusive", img: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=300&q=80" }
+  { id: 1, name: "Minimalist Sling Bag", category: "Accessories", price: 2800.00, originalPrice: 3500.00, rating: "4.8", reviews: "142", badge: "Best Seller", img: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&q=80" },
+  { id: 2, name: "Classic UV Sun Shades", category: "Accessories", price: 1500.00, originalPrice: 2000.00, rating: "4.6", reviews: "98", badge: "Trending", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=300&q=80" },
+  { id: 3, name: "Pocket Body Mist (100ml)", category: "Fragrance", price: 1200.00, originalPrice: 1600.00, rating: "4.7", reviews: "310", badge: "Popular", img: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=300&q=80" },
+  { id: 4, name: "Casual Canvas Sneakers", category: "Footwear", price: 3500.00, originalPrice: 4200.00, rating: "4.9", reviews: "524", badge: "Limited Edition", img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=300&q=80" },
+  { id: 5, name: "Minimalist Leather Watch", category: "Accessories", price: 2500.00, originalPrice: 3200.00, rating: "4.5", reviews: "76", badge: "Sale", img: "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=300&q=80" },
+  { id: 6, name: "Wired Bass Earphones", category: "Electronics", price: 1900.00, originalPrice: 2500.00, rating: "4.8", reviews: "215", badge: "Top Rated", img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=300&q=80" },
+  { id: 7, name: "Mini Food Chopper", category: "Electronics", price: 2500.00, originalPrice: 3100.00, rating: "4.7", reviews: "180", badge: "Bundle Deal", img: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=300&q=80" },
+  { id: 8, name: "Pocket Notebook Set", category: "Accessories", price: 850.00, originalPrice: 1100.00, rating: "4.9", reviews: "89", badge: "Exclusive", img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&q=80" }
 ];
 
 const QUICK_ACTIONS = [
@@ -68,6 +70,7 @@ const QUICK_ACTIONS = [
 // ROOT APP CONTAINER
 // ==========================================
 export default function DashboardApp() {
+
   const [toast, setToast] = useState("");
   const [cartItems, setCartItems] = useState([
     { ...EXPANDED_CATALOG[0], quantity: 1 },
@@ -165,11 +168,11 @@ export default function DashboardApp() {
                 <div className="flex items-center gap-3">
                   <div className="p-3 bg-blue-50 text-blue-600 rounded-2xl"><Wallet className="w-5 h-5" /></div>
                   <div>
-                    <h3 className="text-base font-bold text-slate-900">Annual Tax Statement</h3>
+                    <h3 className="text-base font-bold text-slate-900">Annual Budget Statement</h3>
                     <p className="text-xs text-slate-500">Verified institutional expenditure records</p>
                   </div>
                 </div>
-                <button onClick={() => { showToast("Tax report statement downloaded successfully!"); setActiveModalType(null); }} className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-2xl text-xs mt-2 cursor-pointer shadow-md transition-all">
+                <button onClick={() => { showToast("Budget statement downloaded successfully!"); setActiveModalType(null); }} className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-2xl text-xs mt-2 cursor-pointer shadow-md transition-all">
                   Download Verified PDF Statement
                 </button>
               </>
@@ -185,8 +188,8 @@ export default function DashboardApp() {
                   </div>
                 </div>
                 <div className="p-4 bg-violet-50/50 rounded-2xl text-xs text-violet-900 space-y-1.5 border border-violet-100">
-                  <p className="font-bold flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-violet-600" /> Assigned Manager: Elizabeth Vance</p>
-                  <p className="text-violet-700">Direct Priority Line: +1 (800) 555-RRVD</p>
+                  <p className="font-bold flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5 text-violet-600" /> Assigned Manager: Rania Afridi</p>
+                  <p className="text-violet-700">Direct Priority Line: +92 (300) 555-RRVD</p>
                 </div>
               </>
             )}
@@ -207,8 +210,8 @@ export default function DashboardApp() {
 function TopBar({ cartCount, onCartClick }) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([
-    { id: 1, title: "Shipment Update", desc: "Order #RRVDXB1257 is out for delivery today.", time: "10m ago", read: false },
-    { id: 2, title: "VIP Reward", desc: "You unlocked a 20% discount code: RRVDXB20", time: "2h ago", read: false },
+    { id: 1, title: "Shipment Update", desc: "Order #RRVDXB1257 is out for delivery today in Peshawar.", time: "10m ago", read: false },
+    { id: 2, title: "VIP Reward", desc: "You unlocked a 20% budget discount code: RRVDXB20", time: "2h ago", read: false },
   ]);
 
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -228,7 +231,7 @@ function TopBar({ cartCount, onCartClick }) {
               <span className="text-[11px] font-bold text-violet-600 tracking-wide uppercase">Dashboard</span>
             </div>
             <h1 className="text-sm font-bold text-slate-900 tracking-tight">
-              Executive Overview
+              Affordable Overview
             </h1>
           </div>
         </div>
@@ -267,17 +270,16 @@ function TopBar({ cartCount, onCartClick }) {
           <div className="flex items-center gap-3 pl-1 pr-2 py-1.5 rounded-2xl bg-slate-50/80 hover:bg-slate-100/80 border border-slate-200/60 transition-all cursor-pointer group">
             <div className="relative">
               <img
-                src="https://i.pravatar.cc/80?img=47"
-                alt="Sarah Johnson"
+                src={image}
+                alt=""
                 className="h-9 w-9 rounded-xl object-cover ring-2 ring-white shadow-sm"
               />
               <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white"></span>
             </div>
             <div className="hidden sm:block text-left pr-1">
-              <p className="text-xs font-bold text-slate-900 leading-tight group-hover:text-violet-600 transition-colors">Sarah Johnson</p>
+              <p className="text-xs font-bold text-slate-900 leading-tight group-hover:text-violet-600 transition-colors">Tania</p>
               <p className="text-[10px] text-violet-600 font-semibold tracking-wide leading-tight">VIP Tier 2 Member</p>
             </div>
-            <ChevronDown size={14} className="text-slate-400 group-hover:text-slate-600 transition-colors hidden sm:block ml-1" />
           </div>
         </div>
       </header>
@@ -394,7 +396,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
         <div className="relative z-10 max-w-2xl space-y-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-semibold tracking-wide">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Verified Secure Account
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Budget Friendly Picks (Pakistan)
             </span>
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-violet-500/20 border border-violet-500/30 text-violet-300 text-[11px] font-semibold tracking-wide">
               <Sparkles className="w-3 h-3 text-violet-400" /> VIP Tier 2 Member
@@ -402,17 +404,17 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
           </div>
           
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white">
-            Welcome back, Sarah
+            Welcome back
           </h1>
           
           <p className="text-sm text-slate-300 leading-relaxed font-normal">
-            Your account is fully optimized. You have <strong className="text-white font-semibold">3 active shipments</strong> in transit, <strong className="text-white font-semibold">16 items</strong> secured in your wishlist, and exclusive seasonal perks unlocked.
+            Your account is fully optimized. You have <strong className="text-white font-semibold">3 active shipments</strong> in transit, <strong className="text-white font-semibold">16 items</strong> secured in your wishlist, and affordable daily deals unlocked.
           </p>
           
           <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-slate-300 border-t border-slate-800/80">
             <div className="flex items-center gap-2">
               <Clock className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Last login: Today, 09:42 AM</span>
+              <span>Last login: Today, 02:26 PM</span>
             </div>
             <div className="w-px h-3 bg-slate-700 hidden sm:block"></div>
             <div className="flex items-center gap-2">
@@ -443,7 +445,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
               </div>
               <p className="mt-4 text-xs text-slate-400 font-semibold uppercase tracking-wider">{label}</p>
               <div className="flex items-baseline gap-2 mt-1">
-                <p className="text-3xl font-extrabold text-slate-900">{value}</p>
+                <p className="text-2xl lg:text-3xl font-extrabold text-slate-900">{value}</p>
                 <span className="text-[11px] text-slate-500 font-medium">{subtext}</span>
               </div>
             </div>
@@ -464,7 +466,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
             <div className="mb-5 flex items-center justify-between">
               <div>
                 <h2 className="text-sm font-bold text-slate-900 tracking-tight">Recent Transactions</h2>
-                <p className="text-[11px] text-slate-400">Live order status and invoice records</p>
+                <p className="text-[11px] text-slate-400">Live order status and budget records</p>
               </div>
               <button 
                 onClick={() => setShowAllOrders(!showAllOrders)}
@@ -494,7 +496,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
                       <p className="font-bold text-slate-900">{o.name}</p>
                       <p className="text-[11px] text-slate-400 mt-0.5">{o.date} &bull; Tracking: <span className="font-mono text-slate-600">{o.trackingCode}</span></p>
                     </div>
-                    <span className="font-extrabold text-slate-900 text-sm">{o.price}</span>
+                    <span className="font-extrabold text-slate-900 text-xs sm:text-sm">{o.price}</span>
                   </div>
 
                   <div className="pt-2.5 border-t border-slate-200/60 flex justify-end">
@@ -502,7 +504,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
                       onClick={() => setTrackingModalOrder(o)}
                       className="text-[11px] font-bold text-violet-600 hover:text-violet-700 cursor-pointer flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-xl border border-violet-100 shadow-2xs group-hover:bg-violet-600 group-hover:text-white transition-all"
                     >
-                      <Truck size={12} /> Quick Track Popup
+                      <Truck size={12} /> Quick Track 
                     </button>
                   </div>
                 </div>
@@ -514,7 +516,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
             onClick={onOpenSimpleOrders}
             className="w-full py-3 bg-slate-50 hover:bg-slate-100/80 text-slate-700 text-xs font-bold rounded-2xl transition-all text-center cursor-pointer border border-slate-200/60 shadow-2xs"
           >
-            View Total Orders Summary Popup
+            View Total Orders Summary 
           </button>
         </div>
 
@@ -522,7 +524,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <h2 className="text-sm font-bold text-slate-900 tracking-tight">Curated Recommendations</h2>
+                <h2 className="text-sm font-bold text-slate-900 tracking-tight">Affordable Recommendations</h2>
                 <p className="text-[11px] text-slate-400">Click any product to view details or add to bag</p>
               </div>
 
@@ -559,7 +561,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
 
           {filteredCatalog.length === 0 ? (
             <div className="text-center py-16 bg-slate-50/50 rounded-2xl border border-dashed border-slate-200">
-              <p className="text-xs text-slate-500 font-semibold">No catalog items matching your filters.</p>
+              <p className="text-xs text-slate-500 font-semibold">No budget items matching your filters.</p>
               <button onClick={() => { setSearchQuery(""); setSelectedCategory("All"); }} className="mt-2 text-xs text-violet-600 font-bold hover:underline cursor-pointer">
                 Clear search and filters
               </button>
@@ -584,9 +586,9 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
 
                   <div className="mt-2.5 pt-2.5 border-t border-slate-100 text-[11px]">
                     <div className="flex items-center justify-between">
-                      <span className="font-extrabold text-slate-900">${p.price.toFixed(2)}</span>
+                      <span className="font-extrabold text-slate-900">Rs. {p.price.toLocaleString()}</span>
                       {p.originalPrice !== p.price && (
-                        <span className="text-[10px] text-slate-400 line-through">${p.originalPrice.toFixed(2)}</span>
+                        <span className="text-[10px] text-slate-400 line-through">Rs. {p.originalPrice.toLocaleString()}</span>
                       )}
                     </div>
                     <div className="flex items-center justify-between mt-1 text-[10px]">
@@ -627,10 +629,10 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="flex items-center justify-between rounded-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-700 p-8 text-white shadow-xl">
           <div className="space-y-3">
-            <span className="inline-block text-[10px] uppercase font-black tracking-wider bg-white/20 backdrop-blur-md px-3 py-1 rounded-lg">Seasonal Campaign</span>
-            <p className="text-2xl font-black tracking-tight">Summer Luxury Collection</p>
-            <p className="text-xs text-violet-100 leading-relaxed font-medium">Enjoy up to 30% off across select high-end fashion, fragrances, and electronics.</p>
-            <button onClick={() => showToast("Redirecting to Summer Luxury Campaign...")} className="mt-2 rounded-2xl bg-white px-5 py-2.5 text-xs font-bold text-violet-700 hover:bg-violet-50 transition-all cursor-pointer shadow-lg flex items-center gap-2">
+            <span className="inline-block text-[10px] uppercase font-black tracking-wider bg-white/20 backdrop-blur-md px-3 py-1 rounded-lg">Budget Campaign</span>
+            <p className="text-2xl font-black tracking-tight">Everyday Value Collection</p>
+            <p className="text-xs text-violet-100 leading-relaxed font-medium">Enjoy affordable pricing across select everyday accessories, fashion, and electronics.</p>
+            <button onClick={() => showToast("Redirecting to Everyday Value Campaign...")} className="mt-2 rounded-2xl bg-white px-5 py-2.5 text-xs font-bold text-violet-700 hover:bg-violet-50 transition-all cursor-pointer shadow-lg flex items-center gap-2">
               Explore Collection <ExternalLink className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -640,7 +642,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
           <div className="space-y-3">
             <span className="inline-block text-[10px] uppercase font-black tracking-wider bg-orange-200 text-orange-900 px-3 py-1 rounded-lg shadow-2xs">Exclusive VIP Perk</span>
             <p className="text-2xl font-black text-orange-950 tracking-tight">20% Off Next Transaction</p>
-            <p className="text-xs text-orange-800 leading-relaxed font-medium">Apply code at checkout to claim your tier reward: <strong className="font-mono bg-white px-2.5 py-1 rounded-xl border border-orange-200 text-orange-900 font-extrabold shadow-2xs">RRVDXB20</strong></p>
+            <p className="text-xs text-orange-800 leading-relaxed font-medium">Apply code at checkout to claim your budget reward: <strong className="font-mono bg-white px-2.5 py-1 rounded-xl border border-orange-200 text-orange-900 font-extrabold shadow-2xs">RRVDXB20</strong></p>
             <button onClick={() => handleCopyCode("RRVDXB20")} className="mt-2 rounded-2xl bg-slate-900 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-800 transition-all cursor-pointer shadow-lg flex items-center gap-2">
               <RefreshCw className="w-3.5 h-3.5" /> Copy Promo Code
             </button>
@@ -659,9 +661,9 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
                 <span className="text-[10px] font-bold uppercase tracking-wider bg-violet-100 text-violet-700 px-3 py-1 rounded-lg">{selectedProduct.category}</span>
                 <h3 className="font-bold text-slate-900 text-lg leading-tight">{selectedProduct.name}</h3>
                 <div className="flex items-center gap-2">
-                  <span className="text-xl font-extrabold text-slate-900">${selectedProduct.price.toFixed(2)}</span>
+                  <span className="text-xl font-extrabold text-slate-900">Rs. {selectedProduct.price.toLocaleString()}</span>
                   {selectedProduct.originalPrice !== selectedProduct.price && (
-                    <span className="text-xs text-slate-400 line-through font-semibold">${selectedProduct.originalPrice.toFixed(2)}</span>
+                    <span className="text-xs text-slate-400 line-through font-semibold">Rs. {selectedProduct.originalPrice.toLocaleString()}</span>
                   )}
                 </div>
                 <div className="flex items-center gap-1.5 text-xs text-amber-500 font-bold">
@@ -671,7 +673,7 @@ function Home({ showToast, cartItems, setCartItems, setActiveModalType, setTrack
             </div>
 
             <p className="text-xs text-slate-600 mt-5 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-200/60 font-medium">
-              Authentic luxury item backed by RRVDXB Verified Guarantee. Free insured express delivery included with VIP Tier 2 membership.
+              Affordable item backed by RRVDXB Verified Guarantee. Fast delivery across Pakistan included with VIP Tier 2 membership.
             </p>
 
             <div className="mt-6 flex items-center gap-3">
@@ -732,13 +734,13 @@ function SimpleTotalOrdersModal({ onClose, showToast }) {
 }
 
 // ==========================================
-// TRACK ORDER MODAL POPUP COMPONENT
+// TRACK ORDER MODAL POPUP COMPONENT (PAKISTAN ADDRESS)
 // ==========================================
 function TrackOrderModal({ order, onClose, showToast }) {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [chatMessage, setChatMessage] = useState("");
   const [chatLog, setChatLog] = useState([
-    { sender: "support", text: `Hello! How can we assist with shipment ${order.id} today?`, time: "10:32 AM" }
+    { sender: "support", text: `Hello Rania! How can we assist with shipment ${order.id} today?`, time: "10:32 AM" }
   ]);
 
   const [steps, setSteps] = useState([
@@ -756,7 +758,7 @@ function TrackOrderModal({ order, onClose, showToast }) {
     setIsRefreshing(true);
     showToast("Connecting to live GPS feed...");
     setTimeout(() => {
-      setLocationText("Out for local delivery in New York, NY");
+      setLocationText("Out for local delivery in Peshawar, KPK");
       setIsRefreshing(false);
       showToast("Live location successfully updated!");
     }, 1200);
@@ -856,7 +858,7 @@ function TrackOrderModal({ order, onClose, showToast }) {
             <dl className="space-y-2 text-xs font-medium">
               <div className="flex justify-between pb-1.5 border-b border-slate-200/60"><dt className="text-slate-400">Courier</dt><dd className="font-bold text-slate-800">{order.courier}</dd></div>
               <div className="flex justify-between pb-1.5 border-b border-slate-200/60"><dt className="text-slate-400">Tracking Code</dt><dd className="font-mono font-bold text-violet-600">{order.trackingCode}</dd></div>
-              <div className="flex justify-between"><dt className="text-slate-400">Destination</dt><dd className="text-right text-slate-800 font-bold">123 Main Street, NY</dd></div>
+              <div className="flex justify-between"><dt className="text-slate-400">Destination</dt><dd className="text-right text-slate-800 font-bold">University Road, Peshawar, KPK</dd></div>
             </dl>
           </div>
 
@@ -961,7 +963,7 @@ function ShoppingCartModal({ cartItems, setCartItems, onClose, showToast }) {
                   <img src={item.img} alt="" className="w-14 h-14 rounded-xl object-cover shadow-2xs" />
                   <div className="flex-1">
                     <p className="text-xs font-bold text-slate-900">{item.name}</p>
-                    <p className="text-xs text-violet-600 font-extrabold mt-0.5">${item.price.toFixed(2)}</p>
+                    <p className="text-xs text-violet-600 font-extrabold mt-0.5">Rs. {item.price.toLocaleString()}</p>
                   </div>
                   <div className="flex items-center gap-2 bg-white px-2.5 py-1.5 rounded-xl border border-slate-200/80 shadow-2xs">
                     <button type="button" onClick={() => updateQty(item.id, -1)} className="text-slate-400 hover:text-slate-700 cursor-pointer"><Minus size={12} /></button>
@@ -979,11 +981,11 @@ function ShoppingCartModal({ cartItems, setCartItems, onClose, showToast }) {
           <div className="pt-4 border-t border-slate-100 space-y-4">
             <div className="flex justify-between text-sm font-extrabold">
               <span className="text-slate-500">Subtotal</span>
-              <span className="text-violet-600 text-base">${subtotal.toFixed(2)}</span>
+              <span className="text-violet-600 text-base">Rs. {subtotal.toLocaleString()}</span>
             </div>
             <button 
               type="button"
-              onClick={() => { showToast("Proceeding to secure checkout..."); onClose(); }}
+              onClick={() => { showToast("Proceeding to secure checkout (Pakistan)..."); onClose(); }}
               className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3.5 rounded-2xl text-xs cursor-pointer shadow-xl shadow-violet-500/25 transition-all"
             >
               Proceed to Secure Checkout
